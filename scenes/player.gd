@@ -9,11 +9,11 @@ func get_input():
 	
 	if direction:
 		velocity.y = direction * speed
-		print("Key pressed")
-		print(velocity.y)
+		#print("Key pressed")
+		#print(velocity.y)
 	else: 
 		velocity.y = 0
-		print(velocity.y)
+		#print(velocity.y)
 
 func _physics_process(_delta):
 	get_input()

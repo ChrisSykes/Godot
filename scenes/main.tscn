@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://y2paqh5genvi"]
+[gd_scene load_steps=15 format=4 uid="uid://y2paqh5genvi"]
 
 [ext_resource type="Texture2D" uid="uid://kdvib5j33vsn" path="res://whitebox.png" id="1_dah2k"]
 [ext_resource type="PackedScene" uid="uid://yf7uo2mn4la5" path="res://scenes/player.tscn" id="1_l2ctt"]
 [ext_resource type="PackedScene" uid="uid://cngv6j2jwxqs2" path="res://scenes/ball.tscn" id="3_bp0ma"]
+[ext_resource type="Script" path="res://scenes/player_1.gd" id="4_ntm7g"]
+[ext_resource type="Script" path="res://scenes/player_2.gd" id="5_hhjnt"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_1f04w"]
 tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 1, 1, 0, 65537, 1, 0, 131073, 1, 0, 196609, 1, 0, 262145, 1, 0)
@@ -27,6 +29,12 @@ size = Vector3(100, 10, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mu0k6"]
 size = Vector2(1152, 10)
+
+[sub_resource type="Theme" id="Theme_dkuxn"]
+default_font_size = 100
+
+[sub_resource type="Theme" id="Theme_n50nq"]
+default_font_size = 100
 
 [node name="main" type="Node2D"]
 
@@ -66,3 +74,35 @@ shape = SubResource("RectangleShape2D_mu0k6")
 position = Vector2(536, 242)
 mass = 1.0
 gravity_scale = 1.0
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="ball"]
+
+[node name="score" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 413.0
+offset_top = 14.0
+offset_right = 453.0
+offset_bottom = 54.0
+
+[node name="player_1" type="Label" parent="score"]
+offset_right = 137.0
+offset_bottom = 125.0
+theme = SubResource("Theme_dkuxn")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_ntm7g")
+
+[node name="player_2" type="Label" parent="score"]
+offset_left = 177.0
+offset_right = 314.0
+offset_bottom = 125.0
+theme = SubResource("Theme_n50nq")
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_hhjnt")
+
+[connection signal="ball_left_screen" from="ball" to="ball" method="_on_ball_left_screen"]
+[connection signal="screen_exited" from="ball/VisibleOnScreenNotifier2D" to="ball" method="_on_visible_on_screen_notifier_2d_screen_exited"]
