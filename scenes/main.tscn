@@ -1,0 +1,68 @@
+[gd_scene load_steps=11 format=4 uid="uid://y2paqh5genvi"]
+
+[ext_resource type="Texture2D" uid="uid://kdvib5j33vsn" path="res://whitebox.png" id="1_dah2k"]
+[ext_resource type="PackedScene" uid="uid://yf7uo2mn4la5" path="res://scenes/player.tscn" id="1_l2ctt"]
+[ext_resource type="PackedScene" uid="uid://cngv6j2jwxqs2" path="res://scenes/ball.tscn" id="3_bp0ma"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_1f04w"]
+tile_data = PackedInt32Array(0, 1, 0, 65536, 1, 0, 131072, 1, 0, 196608, 1, 0, 262144, 1, 0, 1, 1, 0, 65537, 1, 0, 131073, 1, 0, 196609, 1, 0, 262145, 1, 0)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ofgs"]
+texture = ExtResource("1_dah2k")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_01b3g"]
+tile_size = Vector2i(8, 8)
+sources/1 = SubResource("TileSetAtlasSource_2ofgs")
+pattern_0 = SubResource("TileMapPattern_1f04w")
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_33dep"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0456p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x8v62"]
+material = SubResource("StandardMaterial3D_0456p")
+size = Vector3(100, 10, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mu0k6"]
+size = Vector2(1152, 10)
+
+[node name="main" type="Node2D"]
+
+[node name="Sprite2D" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AABGAAAAAQAAAAAAAABGAAEAAQAAAAAAAABHAAAAAQAAAAAAAABHAAEAAQAAAAAAAABGAAIAAQAAAAAAAABGAAMAAQAAAAAAAABGAAQAAQAAAAAAAABGAAUAAQAAAAAAAABGAAYAAQAAAAAAAABHAAIAAQAAAAAAAABHAAMAAQAAAAAAAABHAAQAAQAAAAAAAABHAAUAAQAAAAAAAABHAAYAAQAAAAAAAABGAAsAAQAAAAAAAABGAAwAAQAAAAAAAABGAA0AAQAAAAAAAABGAA4AAQAAAAAAAABGAA8AAQAAAAAAAABHAAsAAQAAAAAAAABHAAwAAQAAAAAAAABHAA0AAQAAAAAAAABHAA4AAQAAAAAAAABHAA8AAQAAAAAAAABGABQAAQAAAAAAAABGABUAAQAAAAAAAABGABYAAQAAAAAAAABGABcAAQAAAAAAAABGABgAAQAAAAAAAABHABQAAQAAAAAAAABHABUAAQAAAAAAAABHABYAAQAAAAAAAABHABcAAQAAAAAAAABHABgAAQAAAAAAAABGAB0AAQAAAAAAAABGAB4AAQAAAAAAAABGAB8AAQAAAAAAAABGACAAAQAAAAAAAABGACEAAQAAAAAAAABHAB0AAQAAAAAAAABHAB4AAQAAAAAAAABHAB8AAQAAAAAAAABHACAAAQAAAAAAAABHACEAAQAAAAAAAABGACYAAQAAAAAAAABGACcAAQAAAAAAAABGACgAAQAAAAAAAABGACkAAQAAAAAAAABGACoAAQAAAAAAAABHACYAAQAAAAAAAABHACcAAQAAAAAAAABHACgAAQAAAAAAAABHACkAAQAAAAAAAABHACoAAQAAAAAAAABGAC8AAQAAAAAAAABGADAAAQAAAAAAAABGADEAAQAAAAAAAABGADIAAQAAAAAAAABGADMAAQAAAAAAAABHAC8AAQAAAAAAAABHADAAAQAAAAAAAABHADEAAQAAAAAAAABHADIAAQAAAAAAAABHADMAAQAAAAAAAABGADgAAQAAAAAAAABGADkAAQAAAAAAAABGADoAAQAAAAAAAABGADsAAQAAAAAAAABGADwAAQAAAAAAAABHADgAAQAAAAAAAABHADkAAQAAAAAAAABHADoAAQAAAAAAAABHADsAAQAAAAAAAABHADwAAQAAAAAAAABGAEEAAQAAAAAAAABGAEIAAQAAAAAAAABGAEMAAQAAAAAAAABGAEQAAQAAAAAAAABGAEUAAQAAAAAAAABHAEEAAQAAAAAAAABHAEIAAQAAAAAAAABHAEMAAQAAAAAAAABHAEQAAQAAAAAAAABHAEUAAQAAAAAAAABGAEoAAQAAAAAAAABGAEsAAQAAAAAAAABGAEwAAQAAAAAAAABGAE4AAQAAAAAAAABHAEoAAQAAAAAAAABHAEsAAQAAAAAAAABHAEwAAQAAAAAAAABHAE0AAQAAAAAAAABHAE4AAQAAAAAAAABGAE0AAQAAAAAAAABGAE8AAQAAAAAAAABGAFAAAQAAAAAAAABHAE8AAQAAAAAAAABHAFAAAQAAAAAAAAA=")
+tile_set = SubResource("TileSet_01b3g")
+
+[node name="player" parent="." instance=ExtResource("1_l2ctt")]
+position = Vector2(30, 227)
+
+[node name="player2" parent="." instance=ExtResource("1_l2ctt")]
+position = Vector2(1117, 203)
+
+[node name="wall_up" type="StaticBody2D" parent="."]
+position = Vector2(576, 5)
+physics_material_override = SubResource("PhysicsMaterial_33dep")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall_up"]
+scale = Vector2(11.52, 1)
+mesh = SubResource("BoxMesh_x8v62")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_up"]
+shape = SubResource("RectangleShape2D_mu0k6")
+
+[node name="wall_bottom" type="StaticBody2D" parent="."]
+position = Vector2(576, 643)
+physics_material_override = SubResource("PhysicsMaterial_33dep")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="wall_bottom"]
+scale = Vector2(11.52, 1)
+mesh = SubResource("BoxMesh_x8v62")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall_bottom"]
+shape = SubResource("RectangleShape2D_mu0k6")
+
+[node name="ball" parent="." instance=ExtResource("3_bp0ma")]
+position = Vector2(536, 242)
+mass = 1.0
+gravity_scale = 1.0

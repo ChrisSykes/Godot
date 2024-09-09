@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cngv6j2jwxqs2"]
+
+[ext_resource type="Script" path="res://scenes/ball.gd" id="1_ogr6g"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_5aicg"]
+radius = 0.1
+height = 0.73
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_opk7e"]
+
+[node name="ball" type="RigidBody2D"]
+mass = 0.001
+gravity_scale = 0.0
+script = ExtResource("1_ogr6g")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+position = Vector2(4.76837e-07, -4.76837e-07)
+scale = Vector2(100.113, 27.3973)
+mesh = SubResource("SphereMesh_5aicg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_opk7e")
